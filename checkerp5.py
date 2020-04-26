@@ -11,8 +11,8 @@ CHECK_FILES_DIR = './testsp5'
 ZIP_REGEX = r'.*\.zip'
 CHECK_REGEX = r'.*\.tst'
 CMP_REGEX = r'.*\.cmp'
-NUM_REACTIVOS = 9
-print('Test aun no funcional')
+HACK_REGEX = r'.*\.hack'
+NUM_REACTIVOS = 8
 
 print('Resultados de proyecto 5:')
 
@@ -37,6 +37,10 @@ for fileName in fileNames:
     cmpFiles = [
         f"{cmpFile}" for cmpFile in os.listdir(f'{CHECK_FILES_DIR}/') if bool(re.match(CMP_REGEX, cmpFile))]
 
+    # obtiene los archivos hack
+    hackFiles = [
+        f"{hackFile}" for hackFile in os.listdir(f'{CHECK_FILES_DIR}/') if bool(re.match(HACK_REGEX, hackFile))]
+
     # copia test files a dir tmp
     for checkFile in checkFiles:
         copyfile(f'{CHECK_FILES_DIR}/{checkFile}',
@@ -46,6 +50,11 @@ for fileName in fileNames:
     for cmpFile in cmpFiles:
         copyfile(f'{CHECK_FILES_DIR}/{cmpFile}',
                  f'{TMP_DIR}/{fileName}/{cmpFile}')
+
+    # copia los hack files a dir tmp
+    for hackFile in hackFiles:
+        copyfile(f'{CHECK_FILES_DIR}/{hackFile}',
+                 f'{TMP_DIR}/{fileName}/{hackFile}')
 
     # testing con hardware simulator
     testPasados = 0
